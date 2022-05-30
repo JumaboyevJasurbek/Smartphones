@@ -10,7 +10,7 @@ const products = [{
     {
         id: 124,
         title: "Samgung Note 20 Ultra",
-        img: "https://picsum.photos/id/6/300/200",
+        img: "https://picsum.photos/300/200",
         price: 10000,
         model: "Samsung",
         addedDate: new Date("2021-10-12 12:13").toISOString(),

@@ -12,14 +12,14 @@
 
 <body>
     <div class="container my-5">
-        <div class="d-flex justify-content-between">
+        <dziv class="d-flex justify-content-between">
             <h1 class="h2">Gilos.uz/smartphones</h1>
 
             <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#edit-student-modal">
         <span class="me-2">Add product</span>
         <i class="fa-solid fa-plus"></i>
       </button>
-        </div>
+        </dziv>
 
         <div class="row mt-5">
             <div class="col-3">
@@ -67,8 +67,9 @@
                     <h2 class="h4 mb-4">Products list</h2>
                     <p>Count: 4</p>
                 </div>
-                <div class="tel-wrapper">
-
+                <div class="tel-wrapper d-flex justify-content-evenly">
+                    <ul class="row list-unstyled g-3">
+                    </ul>
                 </div>
 
             </section>
@@ -119,8 +120,7 @@
     </div>
 
     <template id="tel-template">
-    <ul class="row list-unstyled g-3">
-      <li class="col-4">
+      <li class="col-4 d-flex">
         <div class="card">
           <img src="https://picsum.photos/300/200" alt="photos" class="card-img-top">
           <div class="card-body">
@@ -145,7 +145,6 @@
           </div>
         </div>
       </li>
-    </ul>
   </template>
 
     <script src="js/bootstrap.bundle.min.js"></script>

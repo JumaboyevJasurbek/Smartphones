@@ -6,9 +6,11 @@ const addZero = num => {
     return num < 10 ? "0" + num : num;
 }
 
-
 const createTelBox = product => {
     const elTelBox = elTelTemplate.cloneNode(true).content;
+
+    // const elTelImg = elTelBox.querySelector('.card-img-top')
+    // elTelImg.textContent = product
 
     const elTelTitle = elTelBox.querySelector('.card-title');
     elTelTitle.textContent = product.title;

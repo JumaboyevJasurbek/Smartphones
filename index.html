@@ -16,9 +16,9 @@
             <h1 class="h2">Gilos.uz/smartphones</h1>
 
             <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#edit-student-modal">
-        <span class="me-2">Add product</span>
-        <i class="fa-solid fa-plus"></i>
-      </button>
+                <span class="me-2">Add product</span>
+                <i class="fa-solid fa-plus"></i>
+            </button>
         </dziv>
 
         <div class="row mt-5">
@@ -44,18 +44,18 @@
                     <div class="mb-3">
                         <label for="manufacturer" class="form-label">Manufacturer</label>
                         <select class="form-select" id="manufacturer">
-              <option value="0">All</option>
-              <!-- manufacturers array bu yerga kelishi kerak -->
-            </select>
+                            <option value="0">All</option>
+                            <!-- manufacturers array bu yerga kelishi kerak -->
+                        </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="sortby" class="form-label">Sort by</label>
                         <select class="form-select" id="sortby">
-              <option value="1">Name</option>
-              <option value="2">Price: to lowest</option>
-              <option value="3">Price: to highest</option>
-            </select>
+                            <option value="1">Name</option>
+                            <option value="2">Price: to lowest</option>
+                            <option value="3">Price: to highest</option>
+                        </select>
                     </div>
 
                     <button class="btn btn-primary d-block w-100 py-2">Filter</button>
@@ -67,9 +67,8 @@
                     <h2 class="h4 mb-4">Products list</h2>
                     <p>Count: 4</p>
                 </div>
-                <div class="tel-wrapper d-flex justify-content-evenly">
-                    <ul class="row list-unstyled g-3">
-                    </ul>
+                <div class="tel-wrapper d-flex justify-content-evenly flex-wrap">
+
                 </div>
 
             </section>
@@ -84,7 +83,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="add-product-form">
                         <div class="mb-3">
                             <label for="product-title" class="form-label">Title</label>
                             <input type="text" class="form-control" id="product-title" placeholder="Falon telefon">
@@ -96,9 +95,13 @@
                         <div class="mb-3">
                             <label for="product-manufacturer" class="form-label">Manufacturer</label>
                             <select class="form-select" id="product-manufacturer">
-                <option selected disabled value="0">Select a manufacturer</option>
-                <!-- manufacturers array bu yerga kelishi kerak -->
-              </select>
+                                <option value="4">Select manufacture</option>
+                                <option value="Redmi">Redmi</option>
+                                <option value="Samsung">Samsung</option>
+                                <option value="Apple">Apple</option>
+                                <option value="Huawei">Huawei</option>
+                                <!-- manufacturers array bu yerga kelishi kerak -->
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -120,32 +123,34 @@
     </div>
 
     <template id="tel-template">
-      <li class="col-4 d-flex">
-        <div class="card">
-          <img src="https://picsum.photos/300/200" alt="photos" class="card-img-top">
-          <div class="card-body">
-            <h3 class="card-title"> </h3>
-            <p class="card-price fw-bold"><mark></mark></p>
-            <p class="card-old-price"><s></s></p>
-            <p class="badge company-name bg-success"></p>
-            
-            <p class="card-data"></p>
-            
-            <ul class="d-flex flex-wrap list-unstyled tel-condition">
-              <li class="tel-condition-ram badge bg-primary me-1 mb-1"></li>
-              <li class="tel-condition-memory badge bg-primary me-1 mb-1"></li>
-              <li class="tel-condition-waterproof badge bg-primary me-1 mb-1"></li>
-              <li class="tel-good-side badge bg-primary me-1 mb-1">Falon yaxshi tarafi</li>
-            </ul> 
-            
-            <div class="position-absolute top-0 end-0 d-flex">
-              <button class="btn rounded-0 btn-secondary"><i class="fa-solid fa-pen"></i></button>
-              <button class="btn rounded-0 btn-danger"><i class="fa-solid fa-trash"></i></button>
+        <!-- <ul class="row list-unstyled g-3">
+        </ul> -->
+            <!-- <li class="col-4"> -->
+                <div class="card">
+                <img src="https://picsum.photos/300/200" alt="photos" class="card-img-top" width="300" height="200">
+                <div class="card-body">
+                    <h3 class="card-title"> </h3>
+                    <p class="card-price fw-bold"><mark></mark></p>
+                    <p class="card-old-price"><s></s></p>
+                    <p class="badge company-name bg-success"></p>
+                    
+                    <p class="card-data"></p>
+                    
+                    <ul class="d-flex flex-wrap list-unstyled tel-condition">
+                        <li class="tel-condition-ram badge bg-primary me-1 mb-1"></li>
+                        <li class="tel-condition-memory badge bg-primary me-1 mb-1"></li>
+                        <li class="tel-condition-waterproof badge bg-primary me-1 mb-1"></li>
+                        <li class="tel-good-side badge bg-primary me-1 mb-1"></li>
+                    </ul> 
+                    
+                    <div class="position-absolute top-0 end-0 d-flex">
+                        <button class="btn rounded-0 btn-secondary"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn rounded-0 btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </li>
-  </template>
+        <!-- </li> -->
+        </template>
 
     <script src="js/bootstrap.bundle.min.js"></script>
 

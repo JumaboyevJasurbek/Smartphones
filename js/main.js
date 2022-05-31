@@ -9,8 +9,8 @@ const addZero = num => {
 const createTelBox = product => {
     const elTelBox = elTelTemplate.cloneNode(true).content;
 
-    // const elTelImg = elTelBox.querySelector('.card-img-top')
-    // elTelImg.textContent = product
+    const elTelImg = elTelBox.querySelector('.card-img-top')
+    elTelImg.textContent = product
 
     const elTelTitle = elTelBox.querySelector('.card-title');
     elTelTitle.textContent = product.title;
@@ -28,15 +28,14 @@ const createTelBox = product => {
     const elTelConditionRam = elTelBox.querySelector('.tel-condition-ram')
     elTelConditionRam.textContent = product.benefits[0];
 
+    // const elTelConditionMemory = elTelBox.querySelector('.tel-condition-memory')
+    // elTelConditionMemory.textContent = product.benefits[1];
 
-    const elTelConditionMemory = elTelBox.querySelector('.tel-condition-memory')
-    elTelConditionMemory.textContent = product.benefits[1];
+    // const elTelConditionWaterproof = elTelBox.querySelector('.tel-condition-waterproof')
+    // elTelConditionWaterproof.textContent = product.benefits[2];
 
-    const elTelConditionWaterproof = elTelBox.querySelector('.tel-condition-waterproof')
-    elTelConditionWaterproof.textContent = product.benefits[2];
-
-    const elTelConditionGoodSide = elTelBox.querySelector('.tel-good-side')
-    elTelConditionGoodSide.textContent = product.benefits[3];
+    // const elTelConditionGoodSide = elTelBox.querySelector('.tel-good-side')
+    // elTelConditionGoodSide.textContent = product.benefits[3];
 
     return elTelBox;
 }
@@ -46,3 +45,41 @@ products.forEach((product1) => {
     const elTelBox = createTelBox(product1);
     elTelWrapper.appendChild(elTelBox);
 });
+
+
+const elAddProductForm = document.querySelector('#add-product-form')
+
+
+elAddProductForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const formElement = e.target.elements;
+
+    const TitleInputValue = formElement[0].value.trim();
+    const PriceValue = +formElement[1].value.trim();
+    const manufacturersValue = formElement[2].value;
+    const benefitsValue = +formElement[3].value.trim();
+    const definitionRAM = formElement[4].textContent;
+
+
+    if (TitleInputValue && PriceValue && benefitsValue > 0) {
+
+
+        const addingProduct = {
+            id: Math.floor(Math.random() * 1000),
+            title: TitleInputValue,
+            model: manufacturersValue,
+            price: PriceValue,
+            addedDate: new Date().toISOString(),
+            benefits: definitionRAM
+        }
+
+        products.unshift(addingProduct)
+
+        const elNewProduct = createTelBox(addingProduct)
+        elTelWrapper.prepend(elNewProduct)
+    }
+
+
+    // console.log(e.target.elements);
+})

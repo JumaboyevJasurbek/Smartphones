@@ -7,26 +7,30 @@ const addZero = num => {
 }
 
 const createTelBox = product => {
+
+    //! Bu yerda biz kodni ixchamladik
+    const { title, price, model, addedDate, benefits } = product
+    //?
+
     const elTelBox = elTelTemplate.cloneNode(true).content;
 
-    const elTelImg = elTelBox.querySelector('.card-img-top')
-    elTelImg.textContent = product
 
     const elTelTitle = elTelBox.querySelector('.card-title');
-    elTelTitle.textContent = product.title;
+    elTelTitle.textContent = title;
+
 
     const elTelPrice = elTelBox.querySelector('.card-price');
-    elTelPrice.textContent = product.price;
+    elTelPrice.textContent = price;
 
     const elTelCompany = elTelBox.querySelector('.company-name');
-    elTelCompany.textContent = product.model;
+    elTelCompany.textContent = model;
 
     const elTelDate = elTelBox.querySelector('.card-data');
-    const telData = new Date(product.addedDate);
+    const telData = new Date(addedDate);
     elTelDate.textContent = `${addZero(telData.getDate())}.${addZero(telData.getMonth()+1)}.${telData.getFullYear()} ${addZero(telData.getHours())}:${addZero(telData.getMinutes())}`
 
     const elTelConditionRam = elTelBox.querySelector('.tel-condition-ram')
-    elTelConditionRam.textContent = product.benefits[0];
+    elTelConditionRam.textContent = benefits[0];
 
     // const elTelConditionMemory = elTelBox.querySelector('.tel-condition-memory')
     // elTelConditionMemory.textContent = product.benefits[1];
@@ -37,18 +41,33 @@ const createTelBox = product => {
     // const elTelConditionGoodSide = elTelBox.querySelector('.tel-good-side')
     // elTelConditionGoodSide.textContent = product.benefits[3];
 
+
+    //!  Dataset bn ishlash
+    const elDeleteBtn = elTelBox.querySelector('.btn-trash');
+    elDeleteBtn.dataset.price = price;
+
+
     return elTelBox;
 }
 
 
-products.forEach((product1) => {
-    const elTelBox = createTelBox(product1);
-    elTelWrapper.appendChild(elTelBox);
-});
+const renderStudents = () => {
+    elTelWrapper.innerHTML = ""
+
+    products.forEach((product1) => {
+        const elTelBox = createTelBox(product1);
+        elTelWrapper.appendChild(elTelBox);
+    });
+}
+renderStudents();
 
 
+
+
+
+
+// ! new productni qoshish
 const elAddProductForm = document.querySelector('#add-product-form')
-
 
 elAddProductForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -81,5 +100,34 @@ elAddProductForm.addEventListener('submit', e => {
     }
 
 
-    // console.log(e.target.elements);
+    console.log(e.target.elements);
+});
+
+
+// const elBtnTrash = document.querySelector('.btn-trash');
+
+// elBtnTrash.addEventListener('click', (e) => {
+//     e.target.classList.contains('.btn-trash')
+//         // elTelWrapper.contains.remove();
+//     e.target.parentElement.remove();
+// })
+
+// // function removeSingle(e) {
+
+// //     if (e.target.classList.contains('.btn-trash')) {
+// //         e.target.parentElement.remove();
+// //     }
+// ! Deleteni ishlatish
+
+elTelWrapper.addEventListener('click', (evt) => {
+    if (evt.target.matches('.btn-trash')) {
+        const clickedBtn = +evt.target.dataset.price;
+        const clickedBtnIndex = products.findIndex((product) => {
+            return product.price === clickedBtn;
+        });
+        products.splice(clickedBtnIndex, 1)
+
+        renderStudents();
+
+    }
 })

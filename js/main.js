@@ -107,7 +107,6 @@ elAddProductForm.addEventListener('submit', e => {
         elTelWrapper.prepend(elNewProduct);
         elAddProductForm.reset();
     }
-
     // console.log(e.target.elements);
 });
 
@@ -150,7 +149,6 @@ elTelWrapper.addEventListener('click', (evt) => {
 
             elEditForm.dataset.id = clickedBtn;
         }
-
     };
 });
 
@@ -163,7 +161,7 @@ elEditForm.addEventListener('submit', (e) => {
     const TitleInputValue = formElement[0].value.trim();
     const PriceValue = +formElement[1].value.trim();
     const manufacturersValue = formElement[2].value;
-    const benefitsValue = +formElement[3].value.trim();
+    // const benefitsValue = +formElement[3].value.trim();
     const definitionRAM = formElement[4].textContent;
 
 
@@ -180,13 +178,73 @@ elEditForm.addEventListener('submit', (e) => {
             benefits: definitionRAM
         }
 
-
-
         products.splice(editingItemIndex, 1, editProduct)
 
         renderProducts();
         elEditModal.hide();
-
     }
+
+    console.log(e.target);
+})
+
+
+
+
+const elFilterForm = document.querySelector("#filter-form");
+
+// ? ---------------------------------------1
+// ? Filter funksiyasini ishlash prinsipi
+// const filter = (array, fn) => {
+//         const filteredProduct = [];
+
+//         array.forEach((element) => {
+//             if (fn(element)) {
+//                 filteredProduct.push(element);
+//             }
+//         })
+
+//         return filteredProduct;
+//     }
+// ? ---------------------------------------1
+
+
+
+elFilterForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const filterElements = e.target.elements;
+
+
+    const elFilterSearch = filterElements["filter-search"].value;
+    const elFilterMarkFrom = filterElements['mark-from'].value
+    const elFilterMarkTo = filterElements['mark-to'].value
+    const elFilterManufacturer = filterElements['filter-manufacturer'].value
+    const elFilterSortBy = filterElements['sortby'].value
+
+
+    // ? Filter Funksiyasini ishlash prinsipi
+    // const compareFn = function(element) {
+    //     return element.title.toLocaleLowerCase().includes(elFilterSearch.toLocaleLowerCase())
+    // }
+
+    // const filteredProduct = filter(products, compareFn);
+
+    // console.log(filteredProduct);
+
+
+    const filteredProduct = products.filter(element => {
+        return element.title.toLocaleLowerCase().includes(elFilterSearch.toLocaleLowerCase())
+    });
+
+    console.log(filteredProduct);
+
+    // ? Qoalbola usuli
+    // const filteredProduct = [];
+
+    // products.forEach((product) => {
+    //     if (product.title.includes(elFilterSearch)) {
+    //         filteredProduct.push(product);
+    //     }
+    // })
+
 
 })

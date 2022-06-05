@@ -24,26 +24,26 @@
         <div class="row mt-5">
             <div class="col-3">
                 <h2 class="h4 mb-4">Filter</h2>
-                <form action="#">
+                <form id="filter-form" action="#">
                     <div class="mb-3">
                         <label for="search" class="form-label">Search</label>
-                        <input type="search" class="form-control" id="search" placeholder="Falonchi">
+                        <input type="search" id="filter-search" class="form-control" placeholder="Falonchi">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Price</label>
                         <div class="row">
                             <div class="col-6">
-                                <input type="number" class="form-control" id="from" min="0" aria-label="From" placeholder="From">
+                                <input type="number" class="form-control" id="mark-from" min="0" aria-label="From" placeholder="From">
                             </div>
                             <div class="col-6">
-                                <input type="number" class="form-control" id="to" min="0" aria-label="To" placeholder="To">
+                                <input type="number" class="form-control" id="mark-to" min="0" aria-label="To" placeholder="To">
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="manufacturer" class="form-label">Manufacturer</label>
-                        <select class="form-select" id="manufacturer">
+                        <select class="form-select" id="filter-manufacturer">
                             <option value="0">All</option>
                             <!-- manufacturers array bu yerga kelishi kerak -->
                         </select>
@@ -88,7 +88,7 @@
                             <input type="text" class="form-control" id="product-title" placeholder="Falon telefon">
                         </div>
                         <div class="mb-3">
-                            <label for="price" class="form-label">Narxi</label>
+                            <label for="price" class="form-label">Price</label>
                             <input type="number" class="form-control" id="price" placeholder="12400000">
                         </div>
                         <div class="mb-3">
@@ -136,7 +136,7 @@
                             <input type="text" class="form-control" id="edit-product-title" placeholder="Falon telefon">
                         </div>
                         <div class="mb-3">
-                            <label for="price" class="form-label">Narxi</label>
+                            <label for="price" class="form-label">Price</label>
                             <input type="number" class="form-control" id="edit-product-price" placeholder="12400000">
                         </div>
                         <div class="mb-3">

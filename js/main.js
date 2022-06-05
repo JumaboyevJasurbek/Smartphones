@@ -5,6 +5,7 @@ const addZero = num => {
     return num < 10 ? "0" + num : num;
 }
 
+
 const createTelBox = product => {
 
     //? Bu yerda biz kodni ixchamladik
@@ -59,17 +60,21 @@ const createTelBox = product => {
 }
 
 
-const renderProducts = () => {
+
+
+// ?   Products Array boyicha productlarni korsatib beradi
+const renderProducts = (productArray = products) => {
     elTelWrapper.innerHTML = ""
 
-    products.forEach((product1) => {
+
+
+    productArray.forEach((product1) => {
         const elTelBox = createTelBox(product1);
         elTelWrapper.appendChild(elTelBox);
     });
 }
 renderProducts();
-
-
+// ? =====================================================
 
 
 
@@ -211,40 +216,88 @@ const elFilterForm = document.querySelector("#filter-form");
 
 elFilterForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const filterElements = e.target.elements;
+    const elements = e.target.elements;
 
 
-    const elFilterSearch = filterElements["filter-search"].value;
-    const elFilterMarkFrom = filterElements['mark-from'].value
-    const elFilterMarkTo = filterElements['mark-to'].value
-    const elFilterManufacturer = filterElements['filter-manufacturer'].value
-    const elFilterSortBy = filterElements['sortby'].value
+    const searchValue = elements["filter-search"].value;
+    const markFromValue = +elements['mark-from'].value;
+    const markToValue = elements['mark-to'].value;
+    const ManufacturerValue = elements['filter-manufacturer'].value;
+    const sortByValue = elements['sortby'].value;
 
 
     // ? Filter Funksiyasini ishlash prinsipi
     // const compareFn = function(element) {
-    //     return element.title.toLocaleLowerCase().includes(elFilterSearch.toLocaleLowerCase())
+    //     return element.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
     // }
 
     // const filteredProduct = filter(products, compareFn);
 
     // console.log(filteredProduct);
-
+    // ? ----------------------------------------
 
     const filteredProduct = products.filter(element => {
-        return element.title.toLocaleLowerCase().includes(elFilterSearch.toLocaleLowerCase())
-    });
+        return element.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+    }).filter(product => {
+        const productPrice = product.price;
+        return markFromValue <= productPrice
+    }).filter(product => {
+        const productPrice = product.price;
+        return markFromValue => productPrice;
+    }).sort((a, b) => {
 
-    console.log(filteredProduct);
+        // ? Switch case bn ishlash
+        switch (sortByValue) {
+            case "1":
+                if (a.title > b.title) {
+                    return 1;
+                } else if (a.title === b.title) {
+                    return 0
+                }
+                return -1
+            case "2":
+                return b.price - a.price;
+            case "3":
+                return a.price - b.price;
+            case "4":
+                return (new Date(a.addedDate).getTime()) - (new Date(b.addedDate).getTime())
+            default:
+                break;
+        }
+
+        return 0;
+
+
+        // ? If else bn ishlash
+        // if (sortByValue === "1") {
+        //     if (a.title > b.title) {
+        //         return 1;
+        //     } else if (a.title === b.title) {
+        //         return 0
+        //     }
+        //     return -1
+
+        // } else if (sortByValue === "2") {
+        //     return b.price - a.price;
+        // } else if (sortByValue === "3") {
+        //     return a.price - b.price;
+        // } else if (sortByValue === "4") {
+        //     return (new Date(a.addedDate).getTime()) - (new Date(b.addedDate).getTime())
+        // }
+    })
+
+    renderProducts(filteredProduct);
+
+
 
     // ? Qoalbola usuli
     // const filteredProduct = [];
 
     // products.forEach((product) => {
-    //     if (product.title.includes(elFilterSearch)) {
+    //     if (product.title.includes(searchValue)) {
     //         filteredProduct.push(product);
     //     }
     // })
-
+    // ? ----------------------------------------
 
 })

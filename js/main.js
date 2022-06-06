@@ -9,7 +9,7 @@ const addZero = num => {
 const createTelBox = product => {
 
     //? Bu yerda biz kodni ixchamladik
-    const { id, title, price, model, addedDate, benefits } = product
+    const { img, id, title, price, model, addedDate, benefits } = product
     //?
 
     const elTelBox = elTelTemplate.cloneNode(true).content;
@@ -17,8 +17,6 @@ const createTelBox = product => {
 
     // const elTelImg = elTelBox.querySelector('.card-img');
     // elTelImg.src = img;
-
-
 
     const elTelId = elTelBox.querySelector('.card-id');
     elTelId.textContent = id;
@@ -39,14 +37,14 @@ const createTelBox = product => {
     const elTelConditionRam = elTelBox.querySelector('.tel-condition-ram')
     elTelConditionRam.textContent = benefits[0];
 
-    // const elTelConditionMemory = elTelBox.querySelector('.tel-condition-memory')
-    // elTelConditionMemory.textContent = product.benefits[1];
+    const elTelConditionMemory = elTelBox.querySelector('.tel-condition-memory')
+    elTelConditionMemory.textContent = product.benefits[1];
 
-    // const elTelConditionWaterproof = elTelBox.querySelector('.tel-condition-waterproof')
-    // elTelConditionWaterproof.textContent = product.benefits[2];
+    const elTelConditionWaterproof = elTelBox.querySelector('.tel-condition-waterproof')
+    elTelConditionWaterproof.textContent = product.benefits[2];
 
-    // const elTelConditionGoodSide = elTelBox.querySelector('.tel-good-side')
-    // elTelConditionGoodSide.textContent = product.benefits[3];
+    const elTelConditionGoodSide = elTelBox.querySelector('.tel-good-side')
+    elTelConditionGoodSide.textContent = product.benefits[3];
 
 
     //?  Dataset bn ishlash
@@ -81,6 +79,7 @@ renderProducts();
 
 //? new productni qoshish
 const elAddProductForm = document.querySelector('#add-product-form')
+const elAddModal = new bootstrap.Modal('#add-product-modal')
 
 elAddProductForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -112,7 +111,10 @@ elAddProductForm.addEventListener('submit', e => {
         elTelWrapper.prepend(elNewProduct);
         elAddProductForm.reset();
     }
-    // console.log(e.target.elements);
+
+
+    renderProducts();
+    elAddModal.hide();
 });
 
 
@@ -121,7 +123,7 @@ elAddProductForm.addEventListener('submit', e => {
 //?  Edit ishlatish uchun olib kelingan ozgaruvchilar
 const elEditModal = new bootstrap.Modal('#edit-product-modal')
 
-const elEditForm = document.querySelector('#edit-product-modal');
+const elEditForm = document.querySelector('#edit-product-form');
 const elEditTitle = elEditForm.querySelector('#edit-product-title');
 const elEditPrice = elEditForm.querySelector('#edit-product-price');
 const elEditManafacture = elEditForm.querySelector('#edit-product-manufacturer');
@@ -145,7 +147,6 @@ elTelWrapper.addEventListener('click', (evt) => {
         const clickedBtn = +evt.target.dataset.id;
         const clickedBtnObj = products.find((product) => product.id === clickedBtn);
         // const clickedBtnObj = products[clickedBtnIndex]
-
         if (clickedBtnObj) {
             elEditTitle.value = clickedBtnObj.title || "";
             elEditPrice.value = clickedBtnObj.price || "";
@@ -153,6 +154,7 @@ elTelWrapper.addEventListener('click', (evt) => {
             elEditBenefits.value = clickedBtnObj.benefits || "";
 
             elEditForm.dataset.id = clickedBtn;
+
         }
     };
 });
@@ -160,28 +162,27 @@ elTelWrapper.addEventListener('click', (evt) => {
 
 elEditForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const editingId = e.target.dataset.editingId;
-    const formElement = e.target.elements;
+    const editingId = +e.target.dataset.id;
 
-    const TitleInputValue = formElement[0].value.trim();
-    const PriceValue = +formElement[1].value.trim();
-    const manufacturersValue = formElement[2].value;
-    // const benefitsValue = +formElement[3].value.trim();
-    const definitionRAM = formElement[4].textContent;
 
+    const TitleInputValue = elEditTitle.value.trim();
+    const PriceValue = +elEditPrice.value.trim();
+    const manufacturersValue = elEditManafacture.value;
+    const definitionRAM = elEditBenefits.value;
 
     if (TitleInputValue && PriceValue > 0) {
-        const editingItemIndex = products.find((product) => product.id === editingId);
+        const editingItemIndex = products.findIndex((product) => product.id === editingId);
 
 
         const editProduct = {
             id: editingId,
             title: TitleInputValue,
-            model: manufacturersValue,
             price: PriceValue,
+            model: manufacturersValue,
             addedDate: new Date().toISOString(),
             benefits: definitionRAM
         }
+        console.log(editProduct.id);
 
         products.splice(editingItemIndex, 1, editProduct)
 
@@ -189,7 +190,6 @@ elEditForm.addEventListener('submit', (e) => {
         elEditModal.hide();
     }
 
-    console.log(e.target);
 })
 
 
@@ -221,7 +221,7 @@ elFilterForm.addEventListener('submit', (e) => {
 
     const searchValue = elements["filter-search"].value;
     const markFromValue = +elements['mark-from'].value;
-    const markToValue = elements['mark-to'].value;
+    const markToValue = +elements['mark-to'].value;
     const ManufacturerValue = elements['filter-manufacturer'].value;
     const sortByValue = elements['sortby'].value;
 
@@ -243,7 +243,7 @@ elFilterForm.addEventListener('submit', (e) => {
         return markFromValue <= productPrice
     }).filter(product => {
         const productPrice = product.price;
-        return markFromValue => productPrice;
+        return markToValue <= productPrice;
     }).sort((a, b) => {
 
         // ? Switch case bn ishlash

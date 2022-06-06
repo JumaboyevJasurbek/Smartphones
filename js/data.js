@@ -10,7 +10,7 @@ const products = [{
     {
         id: 124,
         title: "Samgung Note 20 Ultra",
-        img: "https://picsum.photos/id5/300/200",
+        img: "https://picsum.photos/id/2/300/200",
         price: 1200,
         model: "Samsung",
         addedDate: new Date("2021-10-12 12:13").toISOString(),
@@ -19,7 +19,7 @@ const products = [{
     {
         id: 125,
         title: "Redmi Note 10 Pro",
-        img: "https://picsum.photos/id5/300/200",
+        img: "https://picsum.photos/id/3/300/200",
         price: 1000,
         model: "Xiaomi",
         addedDate: new Date("2020-10-12 12:13").toISOString(),
@@ -28,7 +28,7 @@ const products = [{
     {
         id: 126,
         title: "Huawei P20",
-        img: "https://picsum.photos/id5/300/200",
+        img: "https://picsum.photos/id/4/300/200",
         price: 1300,
         model: "Huawei",
         addedDate: new Date("2022-10-12 12:13").toISOString(),

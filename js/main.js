@@ -1,5 +1,6 @@
 let elTelTemplate = document.querySelector('#tel-template');
-let elTelWrapper = document.querySelector('.tel-wrapper')
+let elTelWrapper = document.querySelector('.tel-wrapper');
+const count = document.querySelector('.count');
 
 const addZero = num => {
     return num < 10 ? "0" + num : num;
@@ -46,6 +47,7 @@ const createTelBox = product => {
     const elTelConditionGoodSide = elTelBox.querySelector('.tel-good-side')
     elTelConditionGoodSide.textContent = product.benefits[3];
 
+    // count.textContent = elTelBox.length;
 
     //?  Dataset bn ishlash
     const elAddBtn = elTelBox.querySelector('.btn-trash');
@@ -59,12 +61,9 @@ const createTelBox = product => {
 
 
 
-
 // ?   Products Array boyicha productlarni korsatib beradi
 const renderProducts = (productArray = products) => {
     elTelWrapper.innerHTML = ""
-
-
 
     productArray.forEach((product1) => {
         const elTelBox = createTelBox(product1);
@@ -175,14 +174,14 @@ elEditForm.addEventListener('submit', (e) => {
 
 
         const editProduct = {
-            id: editingId,
-            title: TitleInputValue,
-            price: PriceValue,
-            model: manufacturersValue,
-            addedDate: new Date().toISOString(),
-            benefits: definitionRAM
-        }
-        console.log(editProduct.id);
+                id: editingId,
+                title: TitleInputValue,
+                price: PriceValue,
+                model: manufacturersValue,
+                addedDate: new Date().toISOString(),
+                benefits: definitionRAM
+            }
+            // console.log(editProduct.id);
 
         products.splice(editingItemIndex, 1, editProduct)
 
@@ -220,11 +219,10 @@ elFilterForm.addEventListener('submit', (e) => {
 
 
     const searchValue = elements["filter-search"].value;
-    const markFromValue = +elements['mark-from'].value;
-    const markToValue = +elements['mark-to'].value;
-    const ManufacturerValue = elements['filter-manufacturer'].value;
+    const PriceFromValue = +elements['price-from'].value;
+    const PriceToValue = +elements['price-to'].value;
+    const manufacturerValue = elements['filter-manufacturer'].value;
     const sortByValue = elements['sortby'].value;
-
 
     // ? Filter Funksiyasini ishlash prinsipi
     // const compareFn = function(element) {
@@ -237,54 +235,57 @@ elFilterForm.addEventListener('submit', (e) => {
     // ? ----------------------------------------
 
     const filteredProduct = products.filter(element => {
-        return element.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-    }).filter(product => {
-        const productPrice = product.price;
-        return markFromValue <= productPrice
-    }).filter(product => {
-        const productPrice = product.price;
-        return markToValue <= productPrice;
-    }).sort((a, b) => {
+            return element.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+        }).filter(product => {
+            const ProductPrice = product.price;
+            return ProductPrice >= PriceFromValue
+        }).filter(product => {
+            const productPrice = product.price;
+            return !PriceToValue ? true : productPrice <= PriceToValue;
+        })
+        .filter(product => {
+            const manufactureFilter = product.model;
+            return manufactureFilter === manufacturerValue;
+        })
+        .sort((a, b) => {
+            // ? Switch case bn ishlash
+            switch (sortByValue) {
+                case "1":
+                    if (a.title > b.title) {
+                        return 1;
+                    } else if (a.title === b.title) {
+                        return 0
+                    }
+                    return -1
+                case "2":
+                    return b.price - a.price;
+                case "3":
+                    return a.price - b.price;
+                case "4":
+                    return (new Date(a.addedDate).getTime()) - (new Date(b.addedDate).getTime())
+                default:
+                    break;
+            }
+            return 0;
 
-        // ? Switch case bn ishlash
-        switch (sortByValue) {
-            case "1":
-                if (a.title > b.title) {
-                    return 1;
-                } else if (a.title === b.title) {
-                    return 0
-                }
-                return -1
-            case "2":
-                return b.price - a.price;
-            case "3":
-                return a.price - b.price;
-            case "4":
-                return (new Date(a.addedDate).getTime()) - (new Date(b.addedDate).getTime())
-            default:
-                break;
-        }
 
-        return 0;
+            // ? If else bn ishlash
+            // if (sortByValue === "1") {
+            //     if (a.title > b.title) {
+            //         return 1;
+            //     } else if (a.title === b.title) {
+            //         return 0
+            //     }
+            //     return -1
 
-
-        // ? If else bn ishlash
-        // if (sortByValue === "1") {
-        //     if (a.title > b.title) {
-        //         return 1;
-        //     } else if (a.title === b.title) {
-        //         return 0
-        //     }
-        //     return -1
-
-        // } else if (sortByValue === "2") {
-        //     return b.price - a.price;
-        // } else if (sortByValue === "3") {
-        //     return a.price - b.price;
-        // } else if (sortByValue === "4") {
-        //     return (new Date(a.addedDate).getTime()) - (new Date(b.addedDate).getTime())
-        // }
-    })
+            // } else if (sortByValue === "2") {
+            //     return b.price - a.price;
+            // } else if (sortByValue === "3") {
+            //     return a.price - b.price;
+            // } else if (sortByValue === "4") {
+            //     return (new Date(a.addedDate).getTime()) - (new Date(b.addedDate).getTime())
+            // }
+        })
 
     renderProducts(filteredProduct);
 
@@ -299,5 +300,4 @@ elFilterForm.addEventListener('submit', (e) => {
     //     }
     // })
     // ? ----------------------------------------
-
 })

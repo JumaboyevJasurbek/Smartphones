@@ -33,10 +33,10 @@
                         <label class="form-label">Price</label>
                         <div class="row">
                             <div class="col-6">
-                                <input type="number" class="form-control" id="mark-from" min="0" aria-label="From" placeholder="From">
+                                <input type="number" class="form-control" id="price-from" min="0" aria-label="From" placeholder="From">
                             </div>
                             <div class="col-6">
-                                <input type="number" class="form-control" id="mark-to" min="0" aria-label="To" placeholder="To">
+                                <input type="number" class="form-control" id="price-to" min="0" aria-label="To" placeholder="To">
                             </div>
                         </div>
                     </div>
@@ -44,11 +44,11 @@
                     <div class="mb-3">
                         <label for="manufacturer" class="form-label">Manufacturer</label>
                         <select class="form-select" id="filter-manufacturer">
-                            <!-- <option value="0">All</option> -->
-                            <option value="1">Apple</option>
-                            <option value="2">Xiaomi</option>
-                            <option value="3">Samgung</option>
-                            <option value="4">Huawei</option>
+                            <option value="0">All</option>
+                            <option value="Apple">Apple</option>
+                            <option value="Xiaomi">Xiaomi</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Huawei">Huawei</option>
                             <!-- manufacturers array bu yerga kelishi kerak -->
                         </select>
                     </div>
@@ -57,8 +57,8 @@
                         <label for="sortby" class="form-label">Sort by</label>
                         <select class="form-select" id="sortby">
                             <option value="1">Name</option>
-                            <option value="2">Price: to lowest</option>
-                            <option value="3">Price: to highest</option>
+                            <option value="2">Price: to highest</option>
+                            <option value="3"> Price: to lowest</option>
                             <option value="4">Date</option>
                         </select>
                     </div>
@@ -70,7 +70,7 @@
             <section class="col-9">
                 <div class="d-flex justify-content-between align-items-baseline">
                     <h2 class="h4 mb-4">Products list</h2>
-                    <p>Count: 4</p>
+                    <p class="count">count</p>
                 </div>
                 <div class="tel-wrapper d-flex justify-content-evenly flex-wrap">
 
